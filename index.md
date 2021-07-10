@@ -1,37 +1,111 @@
-## Welcome to GitHub Pages
 
-You can use the [editor on GitHub](https://github.com/Abdulqadir8604/Bank-Account-Manager/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
-
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
 ```
+package com.example.bankAccount;
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
-### Jekyll Themes
+import java.util.Scanner;
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/Abdulqadir8604/Bank-Account-Manager/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+public class App {
+    public static void main(String[] args) {
+        // Scanner input = new Scanner(System.in);
 
-### Support or Contact
+        BankAccount cus1 = new BankAccount("Lamiya", "LM00100111");
+        cus1.showMenu();
+//        com.example.bankAccount.BankAccount cus2 = new com.example.bankAccount.BankAccount("Abdulqadir", "AQ00080604");
+//        cus2.showMenu();
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+    }
+}
+class BankAccount
+{
+    int balance;
+    int previousTransaction;
+    String customerName;
+    String customerId;
+
+    BankAccount(String cname, String cid) {
+        customerName = cname;
+        customerId = cid;
+    }
+    void deposit(int amount){
+        if(amount != 0){
+            balance = balance + amount;
+            previousTransaction = amount;
+        }
+    }
+    void withdraw(int amount){
+        if(amount != 0 ){
+            balance = balance - amount;
+            previousTransaction = -amount;
+        }
+    }
+    void getPreviousTransaction(){
+        if(previousTransaction > 0){
+            System.out.println("Deposited: "+previousTransaction);
+        }else if(previousTransaction < 0){
+            System.out.println("Withdrawn: "+Math.abs(previousTransaction));
+        }else{
+            System.out.println("No Transaction occurred");
+        }
+    }
+    void showMenu(){
+        char option = '\0';
+        Scanner input = new Scanner(System.in);
+        System.out.println("Welcome "+customerName);
+        System.out.println("Your ID is "+customerId);
+        System.out.println("\n");
+        System.out.println("A. Check Balance");
+        System.out.println("B. Deposit");
+        System.out.println("C. Withdraw");
+        System.out.println("D. Previous Transactions");
+        System.out.println("E. Exit");
+        do{
+            System.out.println("**************************************************************************************");
+            System.out.println("Enter an option");
+            System.out.println("**************************************************************************************");
+            option = input.next().charAt(0);
+            System.out.println("\n");
+
+            switch(option) {
+                case 'A':
+                    System.out.println("-------------------------------------------------");
+                    System.out.println("Balance = " + balance);
+                    System.out.println("-------------------------------------------------");
+                    System.out.println("\n");
+                    break;
+                case 'B':
+                    System.out.println("-------------------------------------------------");
+                    System.out.println("Enter an amount to deposit: ");
+                    System.out.println("-------------------------------------------------");
+                    int amount = input.nextInt();
+                    deposit(amount);
+                    System.out.println("\n");
+                    break;
+                case 'C':
+                    System.out.println("-------------------------------------------------");
+                    System.out.println("Enter the amount to withdraw: ");
+                    System.out.println("-------------------------------------------------");
+                    int amount2 = input.nextInt();
+                    withdraw(amount2);
+                    System.out.println("\n");
+                    break;
+                case 'D':
+                    System.out.println("-------------------------------------------------");
+                    getPreviousTransaction();
+                    System.out.println("-------------------------------------------------");
+                    System.out.println("\n");
+                    break;
+                case 'E':
+                    System.out.println("ThankYou for using our services");
+                    break;
+                default:
+                    System.out.println("Invalid Option!! Please enter again.");
+                    break;
+            }
+        }while(option != 'E');
+    }
+}
+
+
+
+```
